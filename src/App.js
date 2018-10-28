@@ -58,17 +58,20 @@ class App extends Component {
     }
 
     onChangeID(val) {
-        const changeid = val.target.value
-        const data = this.state.rawData.filter(e => e['Formatted ID'].includes((changeid).toUpperCase()));
-        console.log("onChangeID", data)
-        this.setState({
-            formattedid: changeid,
+        const data = this.state.rawData.filter(e => e['Formatted ID'].includes((val.target.value).toUpperCase()));
+         this.setState({
+            formattedid: val.target.value,
             jsonData: data
         })
     }
 
     onChangeSchedule(val) {
-        const data = this.state.rawData.filter(e => e['Formatted ID'].includes((val.target.value).toUpperCase()));
+        const data=this.state.rawData.filter(e => {
+            if(e['Schedule State'])
+            return e['Schedule State'].includes((val.target.value).toUpperCase())
+            return console.log(e);
+        });
+
         this.setState({
             scheduleState: val.target.value,
             jsonData: data
@@ -76,8 +79,12 @@ class App extends Component {
     }
 
     onChangeOwner(val) {
-        const ownerData = this.state.rawData.filter(e => e['Formatted ID'].includes((val.target.value).toUpperCase()));
-        console.log("onChangeOwner", ownerData)
+        const ownerData=this.state.rawData.filter(e => {
+            if(e['Owner'])
+                return e['Owner'].includes((val.target.value).toUpperCase())
+            return console.log(e);
+        });
+
         this.setState({
             owner: val.target.value,
             jsonData: ownerData
