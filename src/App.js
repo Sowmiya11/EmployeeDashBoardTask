@@ -119,8 +119,11 @@ class App extends Component {
             console.log(this.state.jsonData)
             var s = this.state.jsonData.filter(e => console.log(e['Schedule State']) === 'Defined')
             console.log('state', s)
+            this.loadOndata();
         };
         reader.readAsText(csvf.target.files[0]);
+
+
 
 
     }
@@ -135,8 +138,8 @@ class App extends Component {
     OnAddInProgress() {
         let s = 0;
         this.state.jsonData.map(e => {
-            if (e['Plan Estimate'] === 'InProgress')
-                s +=1;
+            if (e['Schedule State'] === 'InProgress' && !isNaN(e['Plan Estimate']) && e['Plan Estimate'])
+                s +=parseFloat(e['Plan Estimate']);
 
             return console.log(e);
 
@@ -148,8 +151,8 @@ class App extends Component {
         console.log("working"+this.state.jsonData);
         let s = 0;
         this.state.jsonData.map(e => {
-            if (e['Plan Estimate'] === 'Defined')
-                s += 1;
+            if (e['Schedule State'] === 'Defined' && !isNaN(e['Plan Estimate']) && e['Plan Estimate'])
+                s +=parseFloat(e['Plan Estimate']);
             return console.log(e);
         });
         return s
@@ -158,18 +161,22 @@ class App extends Component {
     OnAddAccepted() {
         let s = 0;
         this.state.jsonData.map(e => {
-            if (e['Plan Estimate'] === 'Accepted')
-                s +=1;
+            if (e['Schedule State'] === 'Accepted' && !isNaN(e['Plan Estimate']) && e['Plan Estimate']) {
+                console.log("testing",e['Plan Estimate'])
+                s += parseFloat(e['Plan Estimate']);
+            }
             return console.log(e);
         })
+
         return s
+
     }
 
     OnAddComleted() {
         let s = 0;
         this.state.jsonData.map(e => {
-            if (e['Plan Estimate'] === 'Completed')
-                s +=1;
+            if (e['Schedule State'] === 'Completed' && !isNaN(e['Plan Estimate']))
+                s +=parseFloat(e['Plan Estimate']);
             return console.log(e);
         })
         return s
