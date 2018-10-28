@@ -136,7 +136,7 @@ class App extends Component {
         let s = 0;
         this.state.jsonData.map(e => {
             if (e['Plan Estimate'] === 'InProgress')
-                s += e['Plan Estimate'];
+                s +=1;
 
             return console.log(e);
 
@@ -149,7 +149,7 @@ class App extends Component {
         let s = 0;
         this.state.jsonData.map(e => {
             if (e['Plan Estimate'] === 'Defined')
-                s += e['Plan Estimate'];
+                s += 1;
             return console.log(e);
         });
         return s
@@ -159,7 +159,7 @@ class App extends Component {
         let s = 0;
         this.state.jsonData.map(e => {
             if (e['Plan Estimate'] === 'Accepted')
-                s += e['Plan Estimate'];
+                s +=1;
             return console.log(e);
         })
         return s
@@ -169,7 +169,7 @@ class App extends Component {
         let s = 0;
         this.state.jsonData.map(e => {
             if (e['Plan Estimate'] === 'Completed')
-                s += e['Plan Estimate'];
+                s +=1;
             return console.log(e);
         })
         return s
