@@ -14,6 +14,10 @@ class App extends Component {
             scheduleState: '',
             owner: ''
         }
+        this.onAddInProgress=0
+        this.onAddDefined=0
+        this.onAddAccepted=0
+        this.onAddComleted=0
     }
 
     headerData() {
@@ -41,7 +45,7 @@ class App extends Component {
     renderData() {
 
         return this.state.jsonData.map((data, index) => {
-            return (<tr key={index}>
+            return (<tbody><tr key={index}>
                     <td>{data['Formatted ID']}</td>
                     <td>{data['Name']}</td>
                     <td>{data['Schedule State']}</td>
@@ -52,7 +56,7 @@ class App extends Component {
                     <td>{data['Owner']}</td>
                     <td>{data['Tags']}</td>
                     <td>{data['Ready']}</td>
-                </tr>
+                </tr></tbody>
             )
         })
     }
@@ -63,6 +67,7 @@ class App extends Component {
             formattedid: val.target.value,
             jsonData: data
         })
+        this.loadOndata()
     }
 
     onChangeSchedule(val) {
@@ -76,6 +81,7 @@ class App extends Component {
             scheduleState: val.target.value,
             jsonData: data
         })
+        this.loadOndata()
     }
 
     onChangeOwner(val) {
@@ -89,6 +95,7 @@ class App extends Component {
             owner: val.target.value,
             jsonData: ownerData
         })
+        this.loadOndata()
     }
 
     csvJSON(csvf) {
@@ -114,6 +121,15 @@ class App extends Component {
             console.log('state', s)
         };
         reader.readAsText(csvf.target.files[0]);
+
+
+    }
+
+    loadOndata(){
+        this.onAddInProgress=this.OnAddInProgress()
+        this.onAddDefined=this.OnAddDefined()
+        this.onAddAccepted=this.OnAddAccepted()
+        this.onAddComleted=this.OnAddComleted()
     }
 
     OnAddInProgress() {
@@ -129,6 +145,7 @@ class App extends Component {
     }
 
     OnAddDefined() {
+        console.log("working"+this.state.jsonData);
         let s = 0;
         this.state.jsonData.map(e => {
             if (e['Plan Estimate'] === 'Defined')
@@ -207,11 +224,11 @@ class App extends Component {
                                                 <th>Total</th>
                                             </tr>
                                             <tr>
-                                                <td>{this.OnAddInProgress()}</td>
-                                                <td>{this.OnAddDefined()}</td>
-                                                <td>{this.OnAddAccepted()}</td>
-                                                <td>{this.OnAddComleted()}</td>
-                                                <td>{this.OnAddInProgress() + this.OnAddDefined() + this.OnAddAccepted() + this.OnAddComleted()}</td>
+                                                <td>{this.onAddInProgress}</td>
+                                                <td>{this.onAddDefined}</td>
+                                                <td>{this.onAddAccepted}</td>
+                                                <td>{this.onAddComleted}</td>
+                                                <td>{this.onAddInProgress + this.onAddDefined + this.onAddAccepted + this.onAddComleted}</td>
                                             </tr>
                                             </tbody>
                                         </table>
