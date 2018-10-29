@@ -73,7 +73,7 @@ class App extends Component {
     onChangeSchedule(val) {
         const data=this.state.rawData.filter(e => {
             if(e['Schedule State'])
-            return e['Schedule State'].includes((val.target.value).toUpperCase())
+            return e['Schedule State'].includes((val.target.value))
             return console.log(e);
         });
 
@@ -87,7 +87,7 @@ class App extends Component {
     onChangeOwner(val) {
         const ownerData=this.state.rawData.filter(e => {
             if(e['Owner'])
-                return e['Owner'].includes((val.target.value).toUpperCase())
+                return e['Owner'].includes((val.target.value))
             return console.log(e);
         });
 
